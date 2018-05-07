@@ -5,23 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Web-Loader</title>
+    <style>
+        #Title, #Log {
+            font-family: monospace;
+        }
+        #Log {
+            font-weight: bold;
+        }
+        .error {
+            color: #BA2A64;
+        }
+        .clear-space {
+            white-space: normal;
+        }
+        .sync {
+            color: #0E40BA;
+        }
+        .async {
+            color: #0EC4B2;
+        }
+        .defer {
+            color: #0EBA77;
+        }
+        .event {
+            color: #783294;
+        }
+    </style>
+    <script>
+        const xSyncDelay = (x) => () => {
+            let i = x;
+            while(i--) {}
+        }
+        window.bigSyncDelay = xSyncDelay(1600000000);
+    </script>
+    <script>
+        window.writeLog = (text, addClass = "") => {
+            console.log(text);
+            const $log = document.getElementById('Log');
+            const logInput = document.createElement('li');
+            logInput.setAttribute("class", addClass);
+            logInput.textContent = text;
+            $log.appendChild(logInput);
+        }
+    </script>
+    <script defer src="./head-defer-script.js"></script>
+    <script async src="./head-async-script.js"></script>
+    <script src="./head-sync-script.js"></script>
+    <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                writeLog("html head in-line script on event DOMContentLoaded", 'event')
+            });
+        </script>
 </head>
-<body>
+<body onload="bigSyncDelay();writeLog('onload body element', 'event')">
+    <span class="">
+        <h1 id="Title">yeah, its loading fine</h1>
+        <ol id="Log">
+            <li class="error clear-space">
+                <s>external head sync script</s>
+                <br>
+                Uncaught TypeError: Cannot read property 'appendChild' of null
+            </li>
+        </ol>
+    </span>
     <code>
         <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;meta http-equiv="X-UA-Compatible" content="ie=edge"&gt;
-    &lt;title&gt;Web-Loader&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    
-&lt;/body&gt;
-&lt;/html&gt;
+<!-- &lt;!DOCTYPE html&gt;
+    &lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;meta http-equiv="X-UA-Compatible" content="ie=edge"&gt;
+        &lt;title&gt;Web-Loader&lt;/title&gt;
+        &lt;script async&gt;console.log('html head foop async')&lt;/script&gt;
+        &lt;script&gt;console.log('html head foop')&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;script async&gt;console.log('html body foop async')&lt;/script&gt;
+        &lt;script&gt;console.log('html body foop')&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt; -->
         </pre>
-    </code>    
+    </code>
+    <script defer src="./body-defer-script.js"></script>
+    <script async src="./body-async-script.js"></script>
+    <script src="./body-sync-script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            writeLog("html body in-line script on event DOMContentLoaded", 'event')
+        });
+    </script>
 </body>
 </html>
