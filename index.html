@@ -6,8 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Web-Loader</title>
     <style>
-        #Title, #Log {
+        body {
             font-family: monospace;
+        }
+        #Main {
+            max-width: 800px;
+            margin: 0 auto;
         }
         #Log {
             font-weight: bold;
@@ -36,7 +40,7 @@
             let i = x;
             while(i--) {}
         }
-        window.bigSyncDelay = xSyncDelay(1600000000);
+        window.bigSyncDelay = xSyncDelay(3200000000);
     </script>
     <script>
         window.writeLog = (text, addClass = "") => {
@@ -58,9 +62,16 @@
         </script>
 </head>
 <body onload="bigSyncDelay();writeLog('onload body element', 'event')">
-    <span class="">
+    <main id="Main">
         <h1 id="Title">yeah, its loading fine</h1>
         <h2>// Add modules, styles, and images Brendan</h2>
+        <figure>
+            <img src="https://placekitten.com/400/600"
+                 alt="Tiny, adorable kitten"
+                 onload="writeLog('html body external image on event load')"
+            />
+            <figcaption>Watch your kitten load</figcaption>
+        </figure>    
         <ol id="Log">
             <li class="error clear-space">
                 <s>external head sync script</s>
@@ -68,7 +79,7 @@
                 Uncaught TypeError: Cannot read property 'appendChild' of null
             </li>
         </ol>
-    </span>
+    </main>
     <code>
         <pre>
 <!-- &lt;!DOCTYPE html&gt;
