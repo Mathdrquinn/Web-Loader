@@ -1,0 +1,26 @@
+{
+  "name": "web-loader",
+  "version": "1.0.0",
+  "description": "Understanding how to load web resources",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mathdrquinn/Web-Loader.git"
+  },
+  "keywords": [
+    "resources",
+    "javascript",
+    "async",
+    "module",
+    "defer"
+  ],
+  "author": "brendan quinn <quinn.197@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mathdrquinn/Web-Loader/issues"
+  },
+  "homepage": "https://github.com/Mathdrquinn/Web-Loader#readme"
+}

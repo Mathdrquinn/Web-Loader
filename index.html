@@ -67,13 +67,13 @@
             $log.appendChild(logInput);
         }
     </script>
-    <script defer src="./head-defer-script.js"></script>
-    <script async src="./head-async-script.js"></script>
+    <script defer src="./scripts/head-defer-script.js"></script>
+    <script async src="./scripts/head-async-script.js"></script>
     <script type="module">
-        import { label } from './head-module-script.js';
+        import { label } from './scripts/head-module-script.js';
         writeLog(label, 'module');
     </script>
-    <script src="./head-sync-script.js"></script>
+    <script src="./scripts/head-sync-script.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
             writeLog("html head in-line script on event DOMContentLoaded", 'event')
@@ -118,13 +118,13 @@
 &lt;/html&gt; -->
         </pre>
     </code>
-    <script defer src="./body-defer-script.js"></script>
-    <script async src="./body-async-script.js"></script>
+    <script defer src="./scripts/body-defer-script.js"></script>
+    <script async src="./scripts/body-async-script.js"></script>
     <script type="module">
-        import { label } from './body-module-script.js';
+        import { label } from './scripts/body-module-script.js';
         writeLog(label, 'module');
     </script>
-    <script src="./body-sync-script.js"></script>
+    <script src="./scripts/body-sync-script.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
             writeLog("html body in-line script on event DOMContentLoaded", 'event')
