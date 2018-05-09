@@ -1,0 +1,1 @@
+export const label = "external head module script";

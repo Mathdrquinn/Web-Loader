@@ -16,6 +16,9 @@
         #Log {
             font-weight: bold;
         }
+        img {
+            max-width: 100%;
+        }
         .error {
             color: #BA2A64;
         }
@@ -27,6 +30,9 @@
         }
         .async {
             color: #0EC4B2;
+        }
+        .module {
+            color: #D4CB2E;
         }
         .defer {
             color: #0EBA77;
@@ -40,43 +46,56 @@
             let i = x;
             while(i--) {}
         }
-        window.bigSyncDelay = xSyncDelay(3200000000);
+        window.bigSyncDelay = xSyncDelay(32000000);
     </script>
     <script>
-        window.writeLog = (text, addClass = "") => {
-            console.log(text);
+        window.writeLog = (text, addClass = "", options = {}) => {
+            console.log(text, options);
             const $log = document.getElementById('Log');
             const logInput = document.createElement('li');
             logInput.setAttribute("class", addClass);
             logInput.textContent = text;
+            if (options.image) {
+                const img = document.createElement('img');
+                img.src = options.image.src;
+                img.alt = options.image.alt;
+                img.height = 16;
+                img.style.marginLeft = '8px';
+
+                logInput.appendChild(img);
+            }
             $log.appendChild(logInput);
         }
     </script>
     <script defer src="./head-defer-script.js"></script>
     <script async src="./head-async-script.js"></script>
+    <script type="module">
+        import { label } from './head-module-script.js';
+        writeLog(label, 'module');
+    </script>
     <script src="./head-sync-script.js"></script>
     <script>
-            document.addEventListener("DOMContentLoaded", function(event) {
-                writeLog("html head in-line script on event DOMContentLoaded", 'event')
-            });
-        </script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            writeLog("html head in-line script on event DOMContentLoaded", 'event')
+        });
+    </script>
 </head>
-<body onload="bigSyncDelay();writeLog('onload body element', 'event')">
+<body onload="bigSyncDelay();writeLog('html body in-line on event load', 'event')">
     <main id="Main">
         <h1 id="Title">yeah, its loading fine</h1>
         <h2>// Add modules, styles, and images Brendan</h2>
         <figure>
             <img src="https://placekitten.com/400/600"
                  alt="Tiny, adorable kitten"
-                 onload="writeLog('html body external image on event load')"
+                 onload="writeLog('html body external image on event load', 'event', { image: this })"
             />
             <figcaption>Watch your kitten load</figcaption>
         </figure>    
         <ol id="Log">
-            <li class="error clear-space">
+            <li class="sync clear-space">
                 <s>external head sync script</s>
                 <br>
-                Uncaught TypeError: Cannot read property 'appendChild' of null
+                <span class="error">Uncaught TypeError: Cannot read property 'appendChild' of null</span>
             </li>
         </ol>
     </main>
@@ -101,6 +120,10 @@
     </code>
     <script defer src="./body-defer-script.js"></script>
     <script async src="./body-async-script.js"></script>
+    <script type="module">
+        import { label } from './body-module-script.js';
+        writeLog(label, 'module');
+    </script>
     <script src="./body-sync-script.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
